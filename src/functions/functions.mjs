@@ -8,6 +8,10 @@ const fetcher = new ConcurrencyLimitedFetch();
 CustomFunctions.associate('OPENAI', ChatComplete);
 
 export async function ChatComplete(system_message, messages, model, temperature, apiKey, invocation) {
+
+  // Marks the function as non-volatile so it only recalculates cells when strickly necessary to avoid unnecesary API costs
+  CustomFunctions.Volatile(false);
+
   // Handle system_message: Use default if none is provided
   if (!system_message || system_message.length === 0) {
     system_message = ['system', 'You are a helpful assistant.'];
