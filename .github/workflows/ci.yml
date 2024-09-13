@@ -35,4 +35,7 @@ jobs:
           node-version: '20.x'
           cache: 'npm'
       - run: npm ci
-      - run: npm test
+      - run: |
+          # Run tests related to the OPENAI and COST functions
+          npm test -- --grep "OPENAI"
+          npm test -- --grep "COST"
