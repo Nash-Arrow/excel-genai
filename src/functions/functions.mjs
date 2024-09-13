@@ -5,7 +5,7 @@ const EMPTY_OR_ZERO = 0;
 
 const fetcher = new ConcurrencyLimitedFetch();
 
-CustomFunctions.associate('openai', ChatComplete);
+CustomFunctions.associate('OPENAI', ChatComplete);
 
 export async function ChatComplete(system_message = ['system', 'You are a helpful assistant.'], messages, model, temperature, apiKey, invocation) {
   // Handle messages as either a single cell or a range of cells
