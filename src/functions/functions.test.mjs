@@ -4,7 +4,7 @@ import { makeCompletionEntity } from '../../testFramework/completionEntityStub.m
 import { makeCompletionResponse } from '../../testFramework/completionResponseStub.mjs';
 import { chatComplete, cost } from './functions.mjs';
 
-describe('CHAT_COMPLETE', () => {
+describe('OPENAI', () => {
   it('makes a completion for given messages', async (t) => {
     const mockResponseBody = makeCompletionResponse({ content: 'Hello' });
     t.mock.method(global, 'fetch', () => mockResponseOk(mockResponseBody));

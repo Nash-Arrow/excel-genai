@@ -7,8 +7,15 @@ const fetcher = new ConcurrencyLimitedFetch();
 
 CustomFunctions.associate('OPENAI', ChatComplete);
 
-export async function ChatComplete(system_message = ['system', 'You are a helpful assistant.'], messages, model, temperature, apiKey, invocation) {
-  // Handle messages as either a single cell or a range of cells
+export async function ChatComplete(system_message, messages, model, temperature, apiKey, invocation) {
+  // Handle system_message: Use default if none is provided
+  if (!system_message || system_message.length === 0) {
+    system_message = ['system', 'You are a helpful assistant.'];
+  } else {
+    system_message = ['system', system_message];
+  }
+
+  // Handle messages as either a single cell or a matrix
   if (!Array.isArray(messages[0])) {
     messages = [[messages]];
   }
@@ -16,10 +23,10 @@ export async function ChatComplete(system_message = ['system', 'You are a helpfu
   // Flatten the matrix of messages into a single array if it's a matrix of cell values
   const formattedMessages = messages.map((messageRow) => {
     if (Array.isArray(messageRow)) {
-      return messageRow.map(cell => ['user', cell]);
+      return ['user', messageRow[0]];  // Assume user role for all non-system messages
     }
     return ['user', messageRow];
-  }).flat();
+  });
 
   // Add the system message to the beginning of the conversation
   formattedMessages.unshift(system_message);
@@ -93,6 +100,7 @@ export async function ChatComplete(system_message = ['system', 'You are a helpfu
     );
   }
 }
+
 
 CustomFunctions.associate('COST', cost);
 
