@@ -6,15 +6,25 @@ const EMPTY_OR_ZERO = 0;
 const fetcher = new ConcurrencyLimitedFetch();
 
 CustomFunctions.associate('openai', ChatComplete);
-export async function ChatComplete(messages, params, invocation) {
-  const {
-    API_KEY: apiKey,
-    API_BASE: apiBase = 'https://api.openai.com/',
-    messages: _,
-    [EMPTY_OR_ZERO]: __,
-    ...userParams
-  } = Object.fromEntries(params);
 
+export async function ChatComplete(system_message = ['system', 'You are a helpful assistant.'], messages, model, temperature, apiKey, invocation) {
+  // Handle messages as either a single cell or a range of cells
+  if (!Array.isArray(messages[0])) {
+    messages = [[messages]];
+  }
+
+  // Flatten the matrix of messages into a single array if it's a matrix of cell values
+  const formattedMessages = messages.map((messageRow) => {
+    if (Array.isArray(messageRow)) {
+      return messageRow.map(cell => ['user', cell]);
+    }
+    return ['user', messageRow];
+  }).flat();
+
+  // Add the system message to the beginning of the conversation
+  formattedMessages.unshift(system_message);
+
+  // Validate apiKey
   if (apiKey == null || apiKey === EMPTY_OR_ZERO) {
     throw new CustomFunctions.Error(
       CustomFunctions.ErrorCode.invalidValue,
@@ -22,17 +32,12 @@ export async function ChatComplete(messages, params, invocation) {
     );
   }
 
-  if (messages.length === 1 && messages[0].length === 1) {
-    messages = [
-      ['system', 'You are a helpful assistant.'],
-      ['user', messages[0][0]],
-    ];
-  }
-
   try {
+    // Create the request body with model and temperature included
     const requestBody = {
-      ...userParams,
-      messages: messages
+      model: model,
+      temperature: temperature,
+      messages: formattedMessages
         .filter(([role]) => role !== EMPTY_OR_ZERO)
         .map(([role, content]) => ({ role, content })),
     };
@@ -40,7 +45,7 @@ export async function ChatComplete(messages, params, invocation) {
     const abortController = new AbortController();
     invocation.onCanceled = () => abortController.abort();
 
-    const response = await fetcher.fetch(`${apiBase}v1/chat/completions`, {
+    const response = await fetcher.fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -50,10 +55,7 @@ export async function ChatComplete(messages, params, invocation) {
       signal: abortController.signal,
     });
 
-    if (
-      !response.ok &&
-      !response.headers.get('Content-Type').startsWith('application/json')
-    ) {
+    if (!response.ok && !response.headers.get('Content-Type').startsWith('application/json')) {
       throw Error(`API error: ${response.status} ${response.statusText}`);
     }
 
@@ -92,8 +94,8 @@ export async function ChatComplete(messages, params, invocation) {
   }
 }
 
-// Terminology note: our _cost_ is driven by usage and OpenAI's _prices_.
 CustomFunctions.associate('COST', cost);
+
 export function cost(completionsMatrix, pricesMatrix) {
   const allPrices = Object.fromEntries(
     pricesMatrix.map((row) => [row[0], { input: row[1], output: row[2] }]),
