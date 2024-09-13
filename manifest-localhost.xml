@@ -5,10 +5,10 @@
   xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
   <Id>00aeeb98-f4d9-4db0-a1e6-cdc652c08e34</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>Chris Price &amp; Robat Williams</ProviderName>
+ <ProviderName>Carlos López</ProviderName>
   <DefaultLocale>en-GB</DefaultLocale>
-  <DisplayName DefaultValue="OpenAI API Functions for Excel"/>
-  <Description DefaultValue="Invoke the OpenAI API calls from formula."/>
+  <DisplayName DefaultValue="GenAI API Functions for Excel"/>
+  <Description DefaultValue="Invoke GenAI API calls from Excel formulas."/>
   <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
   <SupportUrl DefaultValue="https://github.com/robatwilliams/openai-excel-functions"/>
