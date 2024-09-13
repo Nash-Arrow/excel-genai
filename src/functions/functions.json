@@ -1,0 +1,53 @@
+{
+  "allowCustomDataForDataTypeAny": true,
+  "functions": [
+    {
+      "description": "Create a model completion for the given chat coversation",
+      "id": "CHAT_COMPLETE",
+      "name": "CHAT_COMPLETE",
+      "options": {
+        "cancelable": true
+      },
+      "parameters": [
+        {
+          "name": "messages",
+          "description": "The conversation so far. Either a single message (which will be used as the content of a user message and prefixed with a default system message), or a range of cells containing messages (the first column will be used as the role, and the second column as the message).",
+          "type": "string",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "params",
+          "description": "The parameters for the model call. The first column is used as parameter keys and the second as values. The API_KEY parameter is required.",
+          "type": "any",
+          "dimensionality": "matrix"
+        }
+      ],
+      "result": {
+        "type": "any"
+      }
+    },
+    {
+      "description": "Calculate the costs of the completions in the given cells",
+      "id": "COST",
+      "name": "COST",
+      "parameters": [
+        {
+          "name": "completions",
+          "description": "A cell or range of cells containing chat completions.",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "prices",
+          "description": "The prices per 1K tokens for each model. The first column is the canonical model name, the second is the input token price, and the third is the output token price.",
+          "type": "any",
+          "dimensionality": "matrix"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "matrix"
+      }
+    }
+  ]
+}
