@@ -5,8 +5,8 @@ const EMPTY_OR_ZERO = 0;
 
 const fetcher = new ConcurrencyLimitedFetch();
 
-CustomFunctions.associate('OPENAI', OpenAIComplete);
-export async function OpenAIComplete(messages, params, invocation) {
+CustomFunctions.associate('openai', ChatComplete);
+export async function ChatComplete(messages, params, invocation) {
   const {
     API_KEY: apiKey,
     API_BASE: apiBase = 'https://api.openai.com/',
