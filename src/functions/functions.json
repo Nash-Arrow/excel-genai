@@ -3,8 +3,8 @@
   "functions": [
     {
       "description": "Create a model completion for the given chat coversation",
-      "id": "CHAT_COMPLETE",
-      "name": "CHAT_COMPLETE",
+      "id": "OPENAI",
+      "name": "OPENAI",
       "options": {
         "cancelable": true
       },

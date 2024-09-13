@@ -157,7 +157,7 @@ function validateIsCompletion(anyTypedParameter) {
   ) {
     throw new CustomFunctions.Error(
       CustomFunctions.ErrorCode.invalidValue,
-      'Completion in parameter value is not a CHAT_COMPLETE() completion',
+      'Completion in parameter value is not a OPENAI() completion',
     );
   }
 }
