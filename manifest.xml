@@ -65,7 +65,7 @@
         <bt:Url id="Shared.Url" DefaultValue="https://nash-arrow.github.io/excel-genai/shared.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="Functions.Namespace" DefaultValue="OAI"/>
+        <bt:String id="Functions.Namespace" DefaultValue="GENAI"/>
       </bt:ShortStrings>
     </Resources>
   </VersionOverrides>

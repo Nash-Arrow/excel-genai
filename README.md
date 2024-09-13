@@ -2,7 +2,7 @@
 
 > Create OpenAI chat completions from Excel formulas
 
-Developer oriented Excel add-in that provides `=OAI.CHAT_COMPLETE()` to call the completions API, and helpers. Use the power of spreadsheets for prompt engineering, prompt decomposition, prototyping systems, and more.
+Developer oriented Excel add-in that provides `=GENAI.OPENAI()` to call the completions API, and helpers. Use the power of spreadsheets for prompt engineering, prompt decomposition, prototyping systems, and more.
 
 ## Why this add-in
 
@@ -29,7 +29,7 @@ Follow the [sideloading instructions for your platform](https://learn.microsoft.
 - On web, use the "manually sideload" technique.
 - On Windows, use the "configure trust manually" option at the relevant step.
 
-Type `=OAI.` in the formula bar or a cell, and you should see the new functions.
+Type `=GENAI.` in the formula bar or a cell, and you should see the new functions.
 
 <details>
 <summary>Uninstallation</summary>
@@ -42,7 +42,7 @@ For other platforms, [clear the Office cache](https://learn.microsoft.com/en-us/
 
 ## Usage
 
-`OAI.CHAT_COMPLETE()` calls the API to create completions. It is typical to setup a sheet containing parameters for the model call. The first column is used as parameter keys and the second as values. The API_KEY parameter is required and its value should be sourced from the OpenAI console.
+`GENAI.OPENAI()` calls the API to create completions. It is typical to setup a sheet containing parameters for the model call. The first column is used as parameter keys and the second as values. The API_KEY parameter is required and its value should be sourced from the OpenAI console.
 
 `OAI.COST()` calculates the billing cost(s) of completion cell(s). Wrap it with `SUM()` to calculate a total.
 
