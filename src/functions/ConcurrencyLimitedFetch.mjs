@@ -15,7 +15,7 @@ export default class ConcurrencyLimitedFetch {
    *
    * Keep the readme in sync with this behaviour and chosen limit.
    */
-  static _PENDING_LIMIT = 10;
+  static _PENDING_LIMIT = 5;
 
   _queue = [];
   _pendingCount = 0;
